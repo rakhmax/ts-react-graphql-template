@@ -7,6 +7,12 @@ import { authRoutes, notAuthRoutes } from 'router';
 import { NotFoundPage } from 'pages';
 import AuthContext from 'context/auth';
 import { Header } from "components";
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import './style.css';
+
+let theme = createMuiTheme();
+theme = responsiveFontSizes(theme);
 
 const token = localStorage.getItem('token');
 
@@ -46,8 +52,10 @@ const App: FC = () => {
   return (
     <ApolloProvider client={ client }>
       <AuthContext.Provider value={ { token: token, userId: userId, login: login, logout: logout } }>
-        <Header/>
-        { routeResult || <NotFoundPage/> }
+        <ThemeProvider theme={ theme }>
+          { routeResult && <Header/>}
+          { routeResult || <NotFoundPage/> }
+        </ThemeProvider>
       </AuthContext.Provider>
     </ApolloProvider>
   );
