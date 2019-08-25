@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { FormLogin, FormRegister } from 'components';
-import { Box, Grid, Link, Typography } from "@material-ui/core";
+import { Box, Grid, Link, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
@@ -18,8 +18,10 @@ const AuthPage: FC = () => {
       <Box boxShadow={10} p={4} width={450}>
         { isLogin ? <FormLogin/> : <FormRegister/> }
         <Typography className={ classes.typography } noWrap variant="subtitle2">
-          { !isLogin ? "Already" : "Don't" } have an account?
-          <Link className={ classes.link } onClick={ () => setIsLogin(!isLogin) }> Sign { !isLogin ? "in" : "up" }</Link>
+          { !isLogin ? "Already have an account? " : "Don't have an account? " } 
+          <Link className={ classes.link } onClick={() => setIsLogin(!isLogin)}>
+            { !isLogin ? "Sign in" : "Sign up" }
+          </Link>
         </Typography>
       </Box>
     </Grid>

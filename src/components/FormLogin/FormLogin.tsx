@@ -1,29 +1,27 @@
 import React, { FC, useContext, useState, Fragment } from 'react';
 import { navigate } from 'hookrouter';
 import { useMutation } from '@apollo/react-hooks';
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import { Alert, ButtonProgress, Form } from 'components';
 import AuthContext from 'context/auth';
 import { mutations } from './graphql';
 import useStyles from './styles';
+import { initFormState } from 'middleware';
 
-const FormLogin: FC = props => {
+const FormLogin: FC = () => {
   const fields = {
     username: { type: 'text', required: true },
     password: { type: 'password', required: true }
   }
 
-  const initialState: any = {};
-
-  for (let key in fields) {
-    initialState[key] = null;
-  }
-
   const { login } = useContext(AuthContext);
-  const [authUser, { loading }] = useMutation(mutations.AUTH_USER);
-  const [form, setValues] = useState(initialState);
+
+  const [loginUser, { loading }] = useMutation(mutations.LOGIN_USER);
+
+  const [form, setValues] = useState(initFormState(fields));
   const [open, setOpen] = useState(false);
   const [dialogText, setDialogText] = useState('');
+  
   const classes = useStyles();
 
   const updateField = (e: any) => {
@@ -36,8 +34,8 @@ const FormLogin: FC = props => {
   const signIn = async (e: any) => {
     e.preventDefault();
     try {
-      const { data } = await authUser({ variables: { input: form } });
-      login(data.authUser.userId, data.authUser.token);
+      const { data: { authUser } } = await loginUser({ variables: { input: form } });
+      login(authUser.userId, authUser.token);
       setTimeout(() => {
         navigate('/dashboard');
       }, 1000);
@@ -52,12 +50,12 @@ const FormLogin: FC = props => {
       <Form 
         changeHandler={ updateField }
         fields={ fields }
-        header="Sign in"
+        header={ <Typography noWrap variant="h5">Sign in</Typography> }
         loading={ loading }
         submitHandler={ signIn }
       >
         <ButtonProgress
-          circleColor="primary"
+          circularProgress={{ size: 24, color: 'primary' }}
           className={ classes.buttonProgress }
           color="primary"
           loading={ loading }
@@ -65,11 +63,10 @@ const FormLogin: FC = props => {
           variant="contained"
         >Log in</ButtonProgress>
       </Form>
-      <Alert title="Error" text={ dialogText } open={open} onClose={() => setOpen(false)}>
+      <Alert title="Error" text={ dialogText } open={ open } onClose={() => setOpen(false)}>
         <Button onClick={() => setOpen(false)}>OK</Button>
       </Alert>
     </Fragment>
-    
   )
 }
 

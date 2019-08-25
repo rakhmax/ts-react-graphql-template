@@ -1,6 +1,6 @@
 {
-  "short_name": "My Lego Sets",
-  "name": "My Lego Sets App",
+  "short_name": "React App",
+  "name": "React Typescript App",
   "icons": [
     {
       "src": "favicon.ico",

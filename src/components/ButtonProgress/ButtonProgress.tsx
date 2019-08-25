@@ -1,25 +1,19 @@
 import React, { FC } from 'react';
 import { Button, CircularProgress } from '@material-ui/core';
-import { ButtonProps } from '@material-ui/core/Button';
+import Props from './propTypes';
 import useStyles from './styles';
 
-interface ButtonProgressProps extends ButtonProps {
-  circleColor?: any,
-  circleSize?: number,
-  loading: boolean
-}
-
-const ButtonProgress: FC<ButtonProgressProps> = ({ children, circleSize = 24, circleColor = '#000', loading, ...rest }) => {
+const ButtonProgress: FC<Props> = ({ children, loading, circularProgress, ...buttonProps }) => {
   const classes = useStyles();
 
   return (
     <Button
       style={{ position: 'relative' }}
       disabled={ loading }
-      { ...rest }
+      { ...buttonProps }
     >
       { children }
-      { loading && <CircularProgress size={ circleSize } color={ circleColor } className={ classes.buttonProgress } /> }
+      { loading && <CircularProgress className={ classes.buttonProgress } { ...circularProgress }/> }
     </Button>
   )
 }

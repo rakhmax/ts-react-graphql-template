@@ -1,24 +1,15 @@
 import React, { FC } from 'react';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
-import { DialogProps } from '@material-ui/core/Dialog';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
+import Props from './propTypes';
 
-interface AlertProps extends DialogProps {
-  text: string,
-  title: string
-}
-
-const Alert: FC<AlertProps> = ({ children, title, text, ...rest }) => {
+const Alert: FC<Props> = ({ children, title, text, dialogActions, dialogContent, dialogContentText, dialogTitle, ...rest }) => {
   return (
-    <Dialog { ...rest } >
-      <DialogTitle id="alert-dialog-title">{ title }</DialogTitle>
-      <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          { text }
-        </DialogContentText>
+    <Dialog { ...rest }>
+      <DialogTitle { ...dialogTitle }>{ title }</DialogTitle>
+      <DialogContent { ...dialogContent }>
+        <DialogContentText { ...dialogContentText }>{ text }</DialogContentText>
       </DialogContent>
-      <DialogActions>
-        { children }
-      </DialogActions>
+      <DialogActions { ...dialogActions }>{ children }</DialogActions>
     </Dialog>
   )
 }

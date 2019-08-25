@@ -1,13 +1,14 @@
 import React, { FC, Fragment, useContext, useState } from 'react';
 import { navigate } from 'hookrouter';
 import { useMutation } from '@apollo/react-hooks';
-import { Button, Checkbox, FormControlLabel } from '@material-ui/core';
+import { Button, Checkbox, FormControlLabel, Typography } from '@material-ui/core';
 import { Alert, ButtonProgress, Form } from 'components';
 import AuthContext from 'context/auth';
 import { mutations } from './graphql';
 import useStyles from './styles';
+import { initFormState } from 'middleware';
 
-const FormRegister: FC = props => {
+const FormRegister: FC = () => {
   const fields = {
     firstname: { type: 'text', required: true },
     lastname: { type: 'text', required: true },
@@ -16,17 +17,13 @@ const FormRegister: FC = props => {
     password: { type: 'password', required: true }
   }
 
-  const initialState: any = {};
-
-  for (let key in fields) {
-    initialState[key] = null;
-  }
-
   const { login } = useContext(AuthContext);
+  
   const [createUser, { loading }] = useMutation(mutations.CREATE_USER);
-  const [form, setValues] = useState(initialState);
+
+  const [form, setValues] = useState(initFormState(fields));
   const [isAgree, setIsAgree] = useState(false);
-  const [open, setOpen]             = useState(false);
+  const [open, setOpen] = useState(false);
   const [dialogText, setDialogText] = useState('');
 
   const classes = useStyles();
@@ -41,8 +38,8 @@ const FormRegister: FC = props => {
   const signUp = async (e: any) => {
     e.preventDefault();
     try {
-      const { data } = await createUser({ variables: { input: form } });
-      login(data.authUser.userId, data.authUser.token);
+      const { data: { authUser } } = await createUser({ variables: { input: form } });
+      login(authUser.userId, authUser.token);
       setTimeout(() => {
         navigate('/dashboard');
       }, 1000);
@@ -57,20 +54,19 @@ const FormRegister: FC = props => {
       <Form
         changeHandler={ updateField }
         fields={ fields }
-        header='Sign up'
+        header={ <Typography noWrap variant="h5">Sign up</Typography> }
         loading={ loading }
         submitHandler={ signUp }
       >
         <FormControlLabel
           className={ classes.formControlLabel }
-          control={<Checkbox color="primary" />}
+          control={ <Checkbox color="primary"/> }
           label="I agree to the Terms and conditions"
           labelPlacement="end"
           onChange={ () => setIsAgree(!isAgree) }
-          style={ {marginTop: '2rem'} }
         />
         <ButtonProgress
-          circleColor="secondary"
+          circularProgress={{ size: 24, color: 'primary' }}
           color="secondary"
           disabled={ !isAgree || loading }
           loading={ loading }
@@ -78,7 +74,7 @@ const FormRegister: FC = props => {
           variant="contained"
         >Register</ButtonProgress>
       </Form>
-      <Alert title="Error" text={ dialogText } open={open} onClose={() => setOpen(false)}>
+      <Alert title="Error" text={ dialogText } open={ open } onClose={() => setOpen(false)}>
         <Button onClick={() => setOpen(false)}>OK</Button>
       </Alert>
     </Fragment>

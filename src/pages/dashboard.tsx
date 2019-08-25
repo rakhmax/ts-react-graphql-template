@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react';
-import AuthContext from "context/auth";
+import AuthContext from 'context/auth';
 
 const DashboardPage: FC = () => {
   const context = useContext(AuthContext);

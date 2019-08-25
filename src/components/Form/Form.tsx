@@ -1,17 +1,9 @@
 import React, { FC } from 'react';
-import { FormControl, FormGroup, TextField, Typography } from '@material-ui/core';
+import { FormControl, FormGroup, TextField } from '@material-ui/core';
 import useStyles from './styles';
+import Props from './propTypes';
 
-interface FormProps {
-  buttonTitle?: string,
-  fields: any,
-  header?: string,
-  loading: boolean,
-  changeHandler?: (e: any) => any,
-  submitHandler?: (e: any) => any
-}
-
-const Form: FC<FormProps> = ({ children, fields, header = '', loading, submitHandler, changeHandler }) => {
+const Form: FC<Props> = ({ children, fields, header, loading, submitHandler, changeHandler }) => {
   const classes = useStyles();
 
   const initialState: any = {};
@@ -24,7 +16,7 @@ const Form: FC<FormProps> = ({ children, fields, header = '', loading, submitHan
 
   return (
     <form onSubmit={ submitHandler }>
-      <Typography noWrap variant="h5">{ header }</Typography>
+      { header }
       <FormGroup className={ classes.formGroup }>
         { fieldsArray.map((field, index) => (
           <FormControl key={ index }>
