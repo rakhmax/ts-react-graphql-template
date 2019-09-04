@@ -1,5 +1,5 @@
-import initFormState from './initFormState';
+import initFormState from './initFormState'
 
 export {
-  initFormState
+  initFormState,
 }

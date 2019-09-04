@@ -1,11 +1,13 @@
 const initFormState = (fields: object): object => {
-  const initialFormState: any = {};
+  const initialFormState: any = {}
 
-  for (let key in fields) {
-    initialFormState[key] = null;
+  for (const field in fields) {
+    if (fields.hasOwnProperty(field)) {
+      initialFormState[field] = null
+    }
   }
 
-  return initialFormState;
+  return initialFormState
 }
 
-export default initFormState;
+export default initFormState

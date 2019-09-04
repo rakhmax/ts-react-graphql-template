@@ -1,18 +1,16 @@
-import React from 'react';
-import { Auth, Homepage, Dashboard } from 'pages';
+import { Auth, Dashboard, Homepage } from 'pages'
+import React from 'react'
 
 const routes = {
-  '/': () => <Homepage />,
+  '/': () =>  <Homepage/>,
 }
 
 export const authRoutes = {
   ...routes,
-  '/dashboard': () => <Dashboard />
+  '/dashboard': () => <Dashboard/>,
 }
 
 export const notAuthRoutes = {
   ...routes,
-  '/auth': () => <Auth />
+  '/auth': () => <Auth/>,
 }
-
-

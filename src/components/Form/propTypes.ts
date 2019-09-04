@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
+import { ReactNode } from 'react'
 
-export default interface FormProps {
+export default interface IFormProps {
   buttonTitle?: string,
   fields: any,
   header?: ReactNode,

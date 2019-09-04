@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import { gql } from 'apollo-boost'
 
 export const mutations = {
   LOGIN_USER: gql`
@@ -9,5 +9,5 @@ export const mutations = {
         tokenExpiration
       }
     }
-  `
+  `,
 }

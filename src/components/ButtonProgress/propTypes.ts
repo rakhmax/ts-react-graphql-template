@@ -1,7 +1,7 @@
-import { ButtonProps } from '@material-ui/core/Button';
-import { CircularProgressProps } from '@material-ui/core/CircularProgress';
+import { ButtonProps } from '@material-ui/core/Button'
+import { CircularProgressProps } from '@material-ui/core/CircularProgress'
 
-export default interface ButtonProgressProps extends ButtonProps {
+export default interface IButtonProgressProps extends ButtonProps {
   loading: boolean,
   circularProgress?: CircularProgressProps
 }

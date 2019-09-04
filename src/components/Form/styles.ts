@@ -1,5 +1,5 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
-export default makeStyles(theme => ({
-  formGroup: { marginTop: '1rem' }
-}));
+export default makeStyles(() => ({
+  formGroup: { marginTop: '1rem' },
+}))

@@ -1,14 +1,14 @@
-import React, { FC, useContext } from 'react';
-import AuthContext from 'context/auth';
+import AuthContext from 'context/auth'
+import React, { FC, useContext } from 'react'
 
 const DashboardPage: FC = () => {
-  const context = useContext(AuthContext);
+  const context = useContext(AuthContext)
 
   return (
     <main>
-      <h1>Welcome, { context.userId }</h1>
+      <h1>Welcome, {context.userId}</h1>
     </main>
   )
 }
 
-export default DashboardPage;
+export default DashboardPage

@@ -1,5 +1,5 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
-export default makeStyles(theme => ({
-  formControlLabel: { marginTop: '2rem' }
-}));
+export default makeStyles(() => ({
+  formControlLabel: { marginTop: '2rem' },
+}))
